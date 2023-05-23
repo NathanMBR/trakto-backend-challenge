@@ -1,0 +1,18 @@
+version: '3.5'
+
+services:
+  mongo:
+    image: mongo:4.2.24
+    restart: 'no'
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo localhost:27017/nest --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 5s
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: nest
+    ports:
+      - 27017:27017
